@@ -88,6 +88,36 @@
                 }
                 echo json_encode($output);
             }
-        break;
+            break;
+        /* Mostrar informacion del usuario en la vista perfil */
+        case "mostrar":
+            $datos = $usuario->get_usuario_x_id($_POST["usu_id"]);
+            if(is_array($datos)==true and count($datos)<>0){
+                foreach($datos as $row){
+                    $output["usu_id"] = $row["usu_id"];
+                    $output["usu_nom"] = $row["usu_nom"];
+                    $output["usu_apep"] = $row["usu_apep"];
+                    $output["usu_apem"] = $row["usu_apem"];
+                    $output["usu_correo"] = $row["usu_correo"];
+                    $output["usu_sex"] = $row["usu_sex"];
+                    $output["usu_pass"] = $row["usu_pass"];
+                    $output["usu_telf"] = $row["usu_telf"];
+                }
+                echo json_encode($output);
+            }
+            break;
+        /* Actualizar datos de perfil */
+        case "update_perfil":
+            $usuario->update_usuario_perfil(
+                $_POST["usu_id"],
+                $_POST["usu_nom"],
+                $_POST["usu_apep"],
+                $_POST["usu_apem"],
+                $_POST["usu_pass"],
+                $_POST["usu_sex"],
+                $_POST["usu_telf"]
+            );
+            break;
+
     }
 ?>

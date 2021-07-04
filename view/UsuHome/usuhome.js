@@ -53,3 +53,8 @@ $(document).ready(function(){
     });
 
 });
+
+function certificado(curd_id){
+    console.log(curd_id);
+    window.open('../Certificado/index.php?curd_id='+ curd_id +'','_blank');
+}

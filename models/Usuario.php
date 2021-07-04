@@ -23,6 +23,7 @@
                         $_SESSION["usu_nom"]=$resultado["usu_nom"];
                         $_SESSION["usu_ape"]=$resultado["usu_ape"];
                         $_SESSION["usu_correo"]=$resultado["usu_correo"];
+                        $_SESSION["rol_id"]=$resultado["rol_id"];
                         /* Si todo esta correcto indexar en home */
                         header("Location:".Conectar::ruta()."view/UsuHome/");
                         exit();
@@ -139,5 +140,43 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
+        /* Mostrar los datos del usuario segun el ID */
+        public function get_usuario_x_id($usu_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT * FROM tm_usuario WHERE est=1 AND usu_id=?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        /* Actualizar la informacion del perfil del usuario segun ID */
+        public function update_usuario_perfil($usu_id,$usu_nom,$usu_apep,$usu_apem,$usu_pass,$usu_sex,$usu_telf){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="UPDATE tm_usuario 
+                SET
+                    usu_nom = ?,
+                    usu_apep = ?,
+                    usu_apem = ?,
+                    usu_pass = ?,
+                    usu_sex = ?,
+                    usu_telf = ?
+                WHERE
+                    usu_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_nom);
+            $sql->bindValue(2, $usu_apep);
+            $sql->bindValue(3, $usu_apem);
+            $sql->bindValue(4, $usu_pass);
+            $sql->bindValue(5, $usu_sex);
+            $sql->bindValue(6, $usu_telf);
+            $sql->bindValue(7, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
     }
 ?>

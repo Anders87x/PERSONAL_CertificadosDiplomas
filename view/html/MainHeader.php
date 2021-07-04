@@ -13,6 +13,7 @@
         </a>
 
         <input type="hidden" id="usu_idx" value="<?php echo $_SESSION["usu_id"] ?>"><!-- Usu_id del usuario -->
+        <input type="hidden" id="rol_idx" value="<?php echo $_SESSION["rol_id"] ?>"><!-- Rol_id del usuario -->
 
         <div class="dropdown-menu dropdown-menu-header wd-200">
             <ul class="list-unstyled user-profile-nav">
