@@ -1,7 +1,7 @@
 <?php
-    class Curso extends Conectar{
+    class Categoria extends Conectar{
 
-        public function insert_curso($cat_id,$cur_nom,$cur_descrip,$cur_fechini,$cur_fechfin,$inst_id){
+        public function insert_categoria($cat_id,$cur_nom,$cur_descrip,$cur_fechini,$cur_fechfin,$inst_id){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="INSERT INTO tm_curso (cur_id, cat_id, cur_nom, cur_descrip, cur_fechini, cur_fechfin, inst_id, fech_crea, est) VALUES (NULL,?,?,?,?,?,?, now(),'1');";
@@ -16,7 +16,7 @@
             return $resultado=$sql->fetchAll();
         }
 
-        public function update_curso($cur_id,$cat_id,$cur_nom,$cur_descrip,$cur_fechini,$cur_fechfin,$inst_id){
+        public function update_categoria($cur_id,$cat_id,$cur_nom,$cur_descrip,$cur_fechini,$cur_fechfin,$inst_id){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="UPDATE tm_curso
@@ -25,7 +25,7 @@
                     cur_nom = ?,
                     cur_descrip = ?,
                     cur_fechini = ?,
-                    cur_fechfin = ?,
+                    cur_fechfin = ?
                     inst_id = ?
                 WHERE
                     cur_id = ?";
@@ -41,7 +41,7 @@
             return $resultado=$sql->fetchAll();
         }
 
-        public function delete_curso($cur_id){
+        public function delete_categoria($cur_id){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="UPDATE tm_curso
@@ -55,34 +55,16 @@
             return $resultado=$sql->fetchAll();
         }
 
-        public function get_curso(){
+        public function get_categoria(){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT
-                tm_curso.cur_id,
-                tm_curso.cur_nom,
-                tm_curso.cur_descrip,
-                tm_curso.cur_fechini,
-                tm_curso.cur_fechfin,
-                tm_curso.cat_id,
-                tm_categoria.cat_nom,
-                tm_curso.inst_id,
-                tm_instructor.inst_nom,
-                tm_instructor.inst_apep,
-                tm_instructor.inst_apem,
-                tm_instructor.inst_correo,
-                tm_instructor.inst_sex,
-                tm_instructor.inst_telf
-                FROM tm_curso
-                INNER JOIN tm_categoria on tm_curso.cat_id = tm_categoria.cat_id
-                INNER JOIN tm_instructor on tm_curso.inst_id = tm_instructor.inst_id
-                WHERE tm_curso.est = 1";
+            $sql="SELECT * FROM tm_categoria WHERE est = 1";
             $sql=$conectar->prepare($sql);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
 
-        public function get_curso_id($cur_id){
+        public function get_categoria_id($cur_id){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="SELECT * FROM tm_curso WHERE est = 1 AND cur_id = ?";
