@@ -102,6 +102,7 @@
                     $output["usu_sex"] = $row["usu_sex"];
                     $output["usu_pass"] = $row["usu_pass"];
                     $output["usu_telf"] = $row["usu_telf"];
+                    $output["rol_id"] = $row["rol_id"];
                 }
                 echo json_encode($output);
             }
@@ -118,6 +119,46 @@
                 $_POST["usu_telf"]
             );
             break;
+        /* Guardar y editar cuando se tenga el ID */
+        case "guardaryeditar":
+            if(empty($_POST["usu_id"])){
+                $usuario->insert_usuario($_POST["usu_nom"],$_POST["usu_apep"],$_POST["usu_apem"],$_POST["usu_correo"],$_POST["usu_pass"],$_POST["usu_sex"],$_POST["usu_telf"],$_POST["rol_id"]);
+            }else{
+                $usuario->update_usuario($_POST["usu_id"],$_POST["usu_nom"],$_POST["usu_apep"],$_POST["usu_apem"],$_POST["usu_correo"],$_POST["usu_pass"],$_POST["usu_sex"],$_POST["usu_telf"],$_POST["rol_id"]);
+            }
+            break;
+        /* Eliminar segun ID */
+        case "eliminar":
+            $usuario->delete_usuario($_POST["usu_id"]);
+            break;
+        /*  Listar toda la informacion segun formato de datatable */
+        case "listar":
+                $datos=$usuario->get_usuario();
+                $data= Array();
+                foreach($datos as $row){
+                    $sub_array = array();
+                    $sub_array[] = $row["usu_nom"];
+                    $sub_array[] = $row["usu_apep"];
+                    $sub_array[] = $row["usu_apem"];
+                    $sub_array[] = $row["usu_correo"];
+                    $sub_array[] = $row["usu_telf"];
+                    if ($row["rol_id"]==1) {
+                        $sub_array[] = "Usuario";
+                    }else{
+                        $sub_array[] = "Admin";
+                    }
+                    $sub_array[] = '<button type="button" onClick="editar('.$row["usu_id"].');"  id="'.$row["usu_id"].'" class="btn btn-outline-warning btn-icon"><div><i class="fa fa-edit"></i></div></button>';
+                    $sub_array[] = '<button type="button" onClick="eliminar('.$row["usu_id"].');"  id="'.$row["usu_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-close"></i></div></button>';
+                    $data[] = $sub_array;
+                }
+
+                $results = array(
+                    "sEcho"=>1,
+                    "iTotalRecords"=>count($data),
+                    "iTotalDisplayRecords"=>count($data),
+                    "aaData"=>$data);
+                echo json_encode($results);
+                break;
 
     }
 ?>
