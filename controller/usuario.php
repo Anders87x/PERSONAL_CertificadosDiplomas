@@ -159,6 +159,50 @@
                     "aaData"=>$data);
                 echo json_encode($results);
                 break;
+        /* Listar todos los usuarios pertenecientes a un curso */
+        case "listar_cursos_usuario":
+            $datos=$usuario->get_cursos_usuario_x_id($_POST["cur_id"]);
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                $sub_array[] = $row["cur_nom"];
+                $sub_array[] = $row["usu_nom"]." ".$row["usu_apep"]." ".$row["usu_apem"];
+                $sub_array[] = $row["cur_fechini"];
+                $sub_array[] = $row["cur_fechfin"];
+                $sub_array[] = $row["inst_nom"]." ".$row["inst_apep"];
+                $sub_array[] = '<button type="button" onClick="certificado('.$row["curd_id"].');"  id="'.$row["curd_id"].'" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-id-card-o"></i></div></button>';
+                $sub_array[] = '<button type="button" onClick="eliminar('.$row["curd_id"].');"  id="'.$row["curd_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-close"></i></div></button>';
+                $data[] = $sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+            break;
+
+        case "listar_detalle_usuario":
+            $datos=$usuario->get_usuario_modal($_POST["cur_id"]);
+            $data= Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                $sub_array[] = "<input type='checkbox' name='detallecheck[]' value='". $row["usu_id"] ."'>";
+                $sub_array[] = $row["usu_nom"];
+                $sub_array[] = $row["usu_apep"];
+                $sub_array[] = $row["usu_apem"];
+                $sub_array[] = $row["usu_correo"];
+                $data[] = $sub_array;
+            }
+
+            $results = array(
+                "sEcho"=>1,
+                "iTotalRecords"=>count($data),
+                "iTotalDisplayRecords"=>count($data),
+                "aaData"=>$data);
+            echo json_encode($results);
+            break;
 
     }
 ?>

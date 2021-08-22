@@ -92,9 +92,41 @@
                 tm_instructor ON tm_curso.inst_id = tm_instructor.inst_id
                 WHERE 
                 td_curso_usuario.usu_id = ?
+                AND td_curso_usuario.est = 1
                 LIMIT 10";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public  function get_cursos_usuario_x_id($cur_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT 
+                td_curso_usuario.curd_id,
+                tm_curso.cur_id,
+                tm_curso.cur_nom,
+                tm_curso.cur_descrip,
+                tm_curso.cur_fechini,
+                tm_curso.cur_fechfin,
+                tm_usuario.usu_id,
+                tm_usuario.usu_nom,
+                tm_usuario.usu_apep,
+                tm_usuario.usu_apem,
+                tm_instructor.inst_id,
+                tm_instructor.inst_nom,
+                tm_instructor.inst_apep,
+                tm_instructor.inst_apem
+                FROM td_curso_usuario INNER JOIN 
+                tm_curso ON td_curso_usuario.cur_id = tm_curso.cur_id INNER JOIN
+                tm_usuario ON td_curso_usuario.usu_id = tm_usuario.usu_id INNER JOIN
+                tm_instructor ON tm_curso.inst_id = tm_instructor.inst_id
+                WHERE 
+                tm_curso.cur_id = ?
+                AND td_curso_usuario.est = 1";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $cur_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
@@ -247,6 +279,19 @@
             parent::set_names();
             $sql="SELECT * FROM tm_usuario WHERE est = 1";
             $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        /* Listar todas las categorias */
+        public function get_usuario_modal($cur_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT * FROM tm_usuario 
+                WHERE est = 1
+                AND usu_id not in (select usu_id from td_curso_usuario where cur_id=? AND est=1)";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $cur_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
