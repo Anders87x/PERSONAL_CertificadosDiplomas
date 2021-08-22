@@ -48,6 +48,7 @@
                     <th class="wd-15p">Instructor</th>
                     <th class="wd-10p"></th>
                     <th class="wd-10p"></th>
+                    <th class="wd-10p"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +62,7 @@
     </div>
 
     <?php require_once("modalmantenimiento.php"); ?>
+    <?php require_once("modalfile.php"); ?>
 
     <?php require_once("../html/MainJs.php"); ?>
     <script type="text/javascript" src="adminmntcurso.js"></script>

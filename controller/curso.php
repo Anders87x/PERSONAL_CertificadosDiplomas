@@ -43,12 +43,13 @@
             foreach($datos as $row){
                 $sub_array = array();
                 $sub_array[] = $row["cat_nom"];
-                $sub_array[] = strtoupper($row["cur_nom"]);
+                $sub_array[] = '<a href="'.$row["cur_img"].'" target="_blank">'.strtoupper($row["cur_nom"]).'</a>';
                 $sub_array[] = $row["cur_fechini"];
                 $sub_array[] = $row["cur_fechfin"];
                 $sub_array[] = $row["inst_nom"] ." ". $row["inst_apep"] ." ". $row["inst_apem"];
                 $sub_array[] = '<button type="button" onClick="editar('.$row["cur_id"].');"  id="'.$row["cur_id"].'" class="btn btn-outline-warning btn-icon"><div><i class="fa fa-edit"></i></div></button>';
                 $sub_array[] = '<button type="button" onClick="eliminar('.$row["cur_id"].');"  id="'.$row["cur_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-close"></i></div></button>';                
+                $sub_array[] = '<button type="button" onClick="imagen('.$row["cur_id"].');"  id="'.$row["cur_id"].'" class="btn btn-outline-success btn-icon"><div><i class="fa fa-file"></i></div></button>';                
                 $data[] = $sub_array;
             }
 
@@ -70,7 +71,7 @@
                 echo $html;
             }
             break;
-        
+
         case "eliminar_curso_usuario":
             $curso->delete_curso_usuario($_POST["curd_id"]);
             break;
@@ -82,6 +83,10 @@
                 /* Registrar tantos usuarios vengan de la vista */
                 $curso->insert_curso_usuario($_POST["cur_id"],$row);
             }
+            break;
+
+        case "update_imagen_curso":
+            $curso->update_imagen_curso($_POST["curx_idx"],$_POST["cur_img"]);
             break;
     }
 ?>

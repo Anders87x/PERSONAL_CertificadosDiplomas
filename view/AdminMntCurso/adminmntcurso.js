@@ -5,10 +5,13 @@ function init(){
     $("#cursos_form").on("submit",function(e){
         guardaryeditar(e);
     });
+
+    $("#detalle_form").on("submit",function(e){
+        guardaryeditarimg(e);
+    });
 }
 
 function guardaryeditar(e){
-    console.log("test");
     e.preventDefault();
     var formData = new FormData($("#cursos_form")[0]);
     $.ajax({
@@ -131,6 +134,11 @@ function eliminar(cur_id){
     });
 }
 
+function imagen(cur_id){
+    $('#curx_idx').val(cur_id);
+    $('#modalfile').modal('show');
+}
+
 function nuevo(){
     $('#lbltitulo').html('Nuevo Registro');
     $('#cursos_form')[0].reset();
@@ -148,6 +156,29 @@ function combo_categoria(){
 function combo_instructor(){
     $.post("../../controller/instructor.php?op=combo", function (data) {
         $('#inst_id').html(data);
+    });
+}
+
+function guardaryeditarimg(e){
+    e.preventDefault();
+    var formData = new FormData($("#detalle_form")[0]);
+    $.ajax({
+        url: "../../controller/curso.php?op=update_imagen_curso",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(datos){ 
+            $('#cursos_data').DataTable().ajax.reload();
+            Swal.fire({
+                title: 'Correcto!',
+                text: 'Se Actualizo Correctamente',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            })
+            $("#modalfile").modal('hide');
+
+        }
     });
 }
 
