@@ -194,7 +194,23 @@ function registrardetalle(){
             data: formData,
             contentType: false,
             processData: false,
+            success : function(data) {
+                data = JSON.parse(data);
+
+                data.forEach(e => {
+                    e.forEach(i => {
+                        console.log(i['curd_id']);
+                        $.ajax({
+                            type: "POST",
+                            url: "../../controller/curso.php?op=generar_qr",
+                            data: {curd_id : i['curd_id']},
+                            dataType: "json"
+                        });
+                    });
+                });
+            }
         });
+
         /* Recargar datatable de los usuarios del curso */
         $('#detalle_data').DataTable().ajax.reload();
 

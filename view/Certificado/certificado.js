@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d');
 
 /* Inicializamos la imagen */
 const image = new Image();
+const imageqr = new Image();
 
 $(document).ready(function(){
     var curd_id = getUrlParameter('curd_id');
@@ -32,6 +33,11 @@ $(document).ready(function(){
 
         ctx.font = '15px Arial';
         ctx.fillText('Fecha de Inicio : '+data.cur_fechini+' / '+'Fecha de Finalización : '+data.cur_fechfin+'', x, 490);
+
+        /* Ruta de la Imagen */
+        imageqr.src = "../../public/qr/"+curd_id+".png";
+        /* Dimensionamos y seleccionamos imagen */
+        ctx.drawImage(imageqr, 400, 500, 100, 100);
 
         $('#cur_descrip').html(data.cur_descrip);
     });

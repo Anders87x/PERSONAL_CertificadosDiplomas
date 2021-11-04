@@ -79,10 +79,23 @@
         case "insert_curso_usuario":
             /* Array de usuario separado por comas */
             $datos = explode(',', $_POST['usu_id']);
-            foreach ( $datos as $row ) {
-                /* Registrar tantos usuarios vengan de la vista */
-                $curso->insert_curso_usuario($_POST["cur_id"],$row);
+            /* Registrar tantos usuarios vengan de la vista */
+            $data = Array();
+            foreach($datos as $row){
+                $sub_array = array();
+                $idx=$curso->insert_curso_usuario($_POST["cur_id"],$row);
+                $sub_array[] = $idx;
+                $data[] = $sub_array;
             }
+
+            echo json_encode($data);
+            break;
+
+        case "generar_qr":
+            require 'phpqrcode/qrlib.php';
+            //Primer Parametro - Text del QR
+            //Segundo Parametro - Ruta donde se guardara el archivo
+            QRcode::png(conectar::ruta()."view/Certificado/index.php?curd_id=".$_POST["curd_id"],"../public/qr/".$_POST["curd_id"].".png",'L',32,5);
             break;
 
         case "update_imagen_curso":

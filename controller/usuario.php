@@ -76,6 +76,7 @@
                     $output["inst_apep"] = $row["inst_apep"];
                     $output["inst_apem"] = $row["inst_apem"];
                 }
+
                 echo json_encode($output);
             }
             break;
