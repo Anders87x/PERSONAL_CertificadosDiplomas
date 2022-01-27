@@ -1,14 +1,14 @@
 <?php
-    /* Llamando a cadena de Conexion */
+    /*TODO: Llamando a cadena de Conexion */
     require_once("../config/conexion.php");
-    /* Llamando a la clase */
+    /*TODO: Llamando a la clase */
     require_once("../models/Curso.php");
-    /* Inicializando Clase */
+    /*TODO: Inicializando Clase */
     $curso = new Curso();
 
-    /* Opcion de solicitud de controller */
+    /*TODO: Opcion de solicitud de controller */
     switch($_GET["op"]){
-        /* Guardar y editar cuando se tenga el ID */
+        /*TODO: Guardar y editar cuando se tenga el ID */
         case "guardaryeditar":
             if(empty($_POST["cur_id"])){
                 $curso->insert_curso($_POST["cat_id"],$_POST["cur_nom"],$_POST["cur_descrip"],$_POST["cur_fechini"],$_POST["cur_fechfin"],$_POST["inst_id"]);
@@ -16,7 +16,7 @@
                 $curso->update_curso($_POST["cur_id"],$_POST["cat_id"],$_POST["cur_nom"],$_POST["cur_descrip"],$_POST["cur_fechini"],$_POST["cur_fechfin"],$_POST["inst_id"]);
             }
             break;
-        /* Creando Json segun el ID */
+        /*TODO: Creando Json segun el ID */
         case "mostrar":
             $datos = $curso->get_curso_id($_POST["cur_id"]);
             if(is_array($datos)==true and count($datos)<>0){
@@ -32,11 +32,11 @@
                 echo json_encode($output);
             }
             break;
-        /* Eliminar segun ID */
+        /*TODO: Eliminar segun ID */
         case "eliminar":
             $curso->delete_curso($_POST["cur_id"]);
             break;
-        /*  Listar toda la informacion segun formato de datatable */
+        /*TODO:  Listar toda la informacion segun formato de datatable */
         case "listar":
             $datos=$curso->get_curso();
             $data= Array();
@@ -60,7 +60,7 @@
                 "aaData"=>$data);
             echo json_encode($results);
             break;
-        /*  Listar toda la informacion segun formato de datatable */
+        /*TODO:  Listar toda la informacion segun formato de datatable */
         case "combo":
             $datos=$curso->get_curso();
             if(is_array($datos)==true and count($datos)>0){
@@ -75,11 +75,11 @@
         case "eliminar_curso_usuario":
             $curso->delete_curso_usuario($_POST["curd_id"]);
             break;
-        /* Insetar detalle de curso usuario */
+        /*TODO: Insetar detalle de curso usuario */
         case "insert_curso_usuario":
-            /* Array de usuario separado por comas */
+            /*TODO: Array de usuario separado por comas */
             $datos = explode(',', $_POST['usu_id']);
-            /* Registrar tantos usuarios vengan de la vista */
+            /*TODO: Registrar tantos usuarios vengan de la vista */
             $data = Array();
             foreach($datos as $row){
                 $sub_array = array();

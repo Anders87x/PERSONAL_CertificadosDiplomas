@@ -107,6 +107,7 @@
             return $resultado=$sql->fetchAll();
         }
 
+        /*TODO: Insert Curso por Usuario */
         public function insert_curso_usuario($cur_id,$usu_id){
             $conectar= parent::conexion();
             parent::set_names();

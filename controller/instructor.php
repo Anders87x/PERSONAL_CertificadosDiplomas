@@ -1,14 +1,14 @@
 <?php
-    /* Llamando a cadena de Conexion */
+    /*TODO: Llamando a cadena de Conexion */
     require_once("../config/conexion.php");
-    /* Llamando a la clase */
+    /*TODO: Llamando a la clase */
     require_once("../models/Instructor.php");
-    /* Inicializando Clase */
+    /*TODO: Inicializando Clase */
     $instructor = new Instructor();
 
-    /* Opcion de solicitud de controller */
+    /*TODO: Opcion de solicitud de controller */
     switch($_GET["op"]){
-        /* Guardar y editar cuando se tenga el ID */
+        /*TODO: Guardar y editar cuando se tenga el ID */
         case "guardaryeditar":
             if(empty($_POST["inst_id"])){
                 $instructor->insert_instructor($_POST["inst_nom"],$_POST["inst_apep"],$_POST["inst_apem"],$_POST["inst_correo"],$_POST["inst_sex"],$_POST["inst_telf"]);
@@ -16,7 +16,7 @@
                 $instructor->update_instructor($_POST["inst_id"],$_POST["inst_nom"],$_POST["inst_apep"],$_POST["inst_apem"],$_POST["inst_correo"],$_POST["inst_sex"],$_POST["inst_telf"]);
             }
             break;
-        /* Creando Json segun el ID */
+        /*TODO: Creando Json segun el ID */
         case "mostrar":
             $datos = $instructor->get_instructor_id($_POST["inst_id"]);
             if(is_array($datos)==true and count($datos)<>0){
@@ -32,11 +32,11 @@
                 echo json_encode($output);
             }
             break;
-        /* Eliminar segun ID */
+        /*TODO: Eliminar segun ID */
         case "eliminar":
             $instructor->delete_instructor($_POST["inst_id"]);
             break;
-        /*  Listar toda la informacion segun formato de datatable */
+        /*TODO:  Listar toda la informacion segun formato de datatable */
         case "listar":
             $datos=$instructor->get_instructor();
             $data= Array();
@@ -59,7 +59,7 @@
                 "aaData"=>$data);
             echo json_encode($results);
             break;
-        /*  Listar toda la informacion segun formato de datatable */
+        /*TODO:  Listar toda la informacion segun formato de datatable */
         case "combo":
             $datos=$instructor->get_instructor();
             if(is_array($datos)==true and count($datos)>0){

@@ -1,14 +1,14 @@
 <?php
-    /* Llamando a cadena de Conexion */
+    /*TODO: Llamando a cadena de Conexion */
     require_once("../config/conexion.php");
-    /* Llamando a la clase */
+    /*TODO: Llamando a la clase */
     require_once("../models/Categoria.php");
-    /* Inicializando Clase */
+    /*TODO: Inicializando Clase */
     $categoria = new Categoria();
 
-    /* Opcion de solicitud de controller */
+    /*TODO: Opcion de solicitud de controller */
     switch($_GET["op"]){
-        /* Guardar y editar cuando se tenga el ID */
+        /*TODO: Guardar y editar cuando se tenga el ID */
         case "guardaryeditar":
             if(empty($_POST["cat_id"])){
                 $categoria->insert_categoria($_POST["cat_nom"]);
@@ -16,7 +16,7 @@
                 $categoria->update_categoria($_POST["cat_id"],$_POST["cat_nom"]);
             }
             break;
-        /* Creando Json segun el ID */
+        /*TODO: Creando Json segun el ID */
         case "mostrar":
             $datos = $categoria->get_categoria_id($_POST["cat_id"]);
             if(is_array($datos)==true and count($datos)<>0){
@@ -27,11 +27,11 @@
                 echo json_encode($output);
             }
             break;
-        /* Eliminar segun ID */
+        /*TODO: Eliminar segun ID */
         case "eliminar":
             $categoria->delete_categoria($_POST["cat_id"]);
             break;
-        /*  Listar toda la informacion segun formato de datatable */
+        /*TODO:  Listar toda la informacion segun formato de datatable */
         case "listar":
             $datos=$categoria->get_categoria();
             $data= Array();
@@ -50,7 +50,7 @@
                 "aaData"=>$data);
             echo json_encode($results);
             break;
-        /*  Listar toda la informacion segun formato de datatable */
+        /*TODO:  Listar toda la informacion segun formato de datatable */
         case "combo":
             $datos=$categoria->get_categoria();
             if(is_array($datos)==true and count($datos)>0){
