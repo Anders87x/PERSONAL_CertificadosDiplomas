@@ -35,6 +35,8 @@
 
             <button class="btn btn-outline-primary" id="add_button" onclick="nuevo()"><i class="fa fa-plus-square mg-r-10"></i> Nuevo Registro</button>
 
+            <button class="btn btn-outline-primary" id="btnplantilla"><i class="fa fa-gear mg-r-10"></i> Subir Plantilla</button>
+
             <p></p>
 
             <div class="table-wrapper"></div>
@@ -62,9 +64,12 @@
     </div>
 
     <?php require_once("modalmantenimiento.php"); ?>
+    <?php require_once("modalplantilla.php"); ?>
 
     <?php require_once("../html/MainJs.php"); ?>
     <script type="text/javascript" src="adminmntusuario.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
   </body>
 </html>
 <?php
