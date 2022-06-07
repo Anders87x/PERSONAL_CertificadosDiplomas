@@ -159,12 +159,31 @@ var ExcelToJSON = function() {
                 UserList = JSON.parse(json_object);
 
                 console.log(UserList)
-                for (i = 0; i < productList.length; i++) {
+                for (i = 0; i < UserList.length; i++) {
 
                     var columns = Object.values(UserList[i])
 
-                }
+                    $.post("../../controller/usuario.php?op=guardar_desde_excel",{
+                        usu_nom : columns[0],
+                        usu_apep : columns[1],
+                        usu_apem : columns[2],
+                        usu_correo : columns[3],
+                        usu_pass : columns[4],
+                        usu_sex : columns[5],
+                        usu_telf :columns[6],
+                        rol_id : columns[7],
+                        usu_dni :columns[8]
+                    }, function (data) {
+                        console.log(data);
+                    });
 
+                }
+                /* TODO:Despues de subir la informacion limpiar inputfile */
+                document.getElementById("upload").value=null;
+
+                /* TODO: Actualizar Datatable JS */
+                $('#usuario_data').DataTable().ajax.reload();
+                $('#modalplantilla').modal('hide');
             })
         };
         reader.onerror = function(ex) {

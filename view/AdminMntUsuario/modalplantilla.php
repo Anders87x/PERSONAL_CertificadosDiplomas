@@ -10,6 +10,7 @@
                     <div class="form-group">
                         <label class="form-control-label">Seleccionar Plantilla: <span class="tx-danger">*</span></label>
                         <form enctype="multipart/form-data">
+                            <!-- TODO: InputFile para subir archivo -->
                             <input id="upload" type=file name="files[]">
                         </form>
                     </div>

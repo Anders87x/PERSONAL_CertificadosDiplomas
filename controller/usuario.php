@@ -226,5 +226,9 @@
             echo json_encode($results);
             break;
 
+        case "guardar_desde_excel":
+            $usuario->insert_usuario($_POST["usu_nom"],$_POST["usu_apep"],$_POST["usu_apem"],$_POST["usu_correo"],$_POST["usu_pass"],$_POST["usu_sex"],$_POST["usu_telf"],$_POST["rol_id"],$_POST["usu_dni"]);
+            break;
+
     }
 ?>
